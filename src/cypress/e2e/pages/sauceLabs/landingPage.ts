@@ -1,0 +1,39 @@
+import { selectAllElements } from '../../data/helpers';
+
+class landingPage {
+	addAllToCart(type: string, selector: string) {
+		selectAllElements(type, selector);
+	}
+
+	goToCart() {
+		const cartButton = cy.get("[id='shopping_cart_container']");
+		cartButton.click();
+	}
+
+	selectFilterOption(option: string) {
+		const filterDropdown = cy.get("[data-test='product_sort_container']");
+
+		if (option in ['az', 'za', 'lohi', 'hilo']) {
+			filterDropdown.select(option);
+		} 
+	}
+
+	checkShoppingCartBadge() {
+		return cy
+			.get("[class='shopping_cart_badge']")
+			.invoke('text')
+			.then((text) => {
+				return text;
+			});
+	}
+
+	verifyShoppingCartLength() {
+		this.checkShoppingCartBadge().then((res) => {
+			cy.get("[class='cart_list']")
+				.find("[class='cart_item']")
+				.should('have.length', res);
+		});
+	}
+}
+
+export default landingPage;
