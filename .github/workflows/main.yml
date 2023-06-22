@@ -2,12 +2,14 @@ name: Cypress Tests with Dependency and Artifact Caching
 
 on: push
 
+defaults:
+  run:
+    working-directory: src
+
 jobs:
   install:
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: ../src
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,9 +31,7 @@ jobs:
   cypress-run:
     runs-on: ubuntu-22.04
     needs: install
-    defaults:
-      run:
-        working-directory: ../src
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
