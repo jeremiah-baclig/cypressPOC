@@ -2,9 +2,9 @@
 
 I used [Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress) and TypeScript for this project.
 
->Reason being, we can use this as a reference for other automation projects, and also for me to explore a different framework to really understand the benefits and drawbacks of our current approach.
+>Reason being, we can use this as an indirect reference for other automation projects, and also for me to explore a different framework to really understand the benefits and drawbacks of our current approach.
 
-I set this up to run in a CI/CD pipeline using [Github Actions](https://github.com/jeremiah-baclig/cypressPOC/actions). Every push to main should trigger this flow.
+I set this up to run in a CI/CD pipeline using [Github Actions](https://github.com/jeremiah-baclig/cypressPOC/actions). Every push to your branch should trigger this flow.
 
 ### Running this locally
 The tests live [HERE](https://github.com/jeremiah-baclig/cypressPOC/tree/main/src/cypress/e2e), meaning you can clone this repo and make adjustments to the tests accordingly.
@@ -18,6 +18,26 @@ Here's a quick rundown of running the tests locally:
       - I prefer this method as I can continuously make updates, choose tests, and see how it affects the tests
       - You will also want to run using Chrome
 4. If you run into any issues, visit: https://docs.cypress.io/guides/getting-started/installing-cypress 
+
+--- 
+
+### My Test Cases
+*JSON Placeholder*
+ Test        | Description           | 
+| ------------- |:-------------:| 
+| GET comments | Simple API call to comments API and verifying response | 
+| Script button  | Navigate to page and click script button. Intercept that result and also make call to the same API and compare results |
+| GET users | GET for all users, store them, and then sort them in alphabetical order |
+| POST to users | POST to create user. Data sent should match the return |
+
+*Sauce Labs*
+
+ Test        | Description           | 
+| ------------- |:-------------:| 
+| Full user journey | Login, add all items to cart, navigate through purchase process and verify success | 
+| Positive UI interactions | Login, utilize all filter dropdowns and this should NOT affect page functionality |
+| Locked out user | Locked out user cannot login and yields error |
+| Invalid user | Invalid credentials cannot login and yields error |
 
 ---
 
@@ -49,23 +69,3 @@ Select a UI and a API site to test from: https://ultimateqa.com/dummy-automation
 *3 additional cases, optional.* 
 
 **Timeline goal: 2 months**
-
---- 
-
-### My Test Cases
-*JSON Placeholder*
- Test        | Description           | 
-| ------------- |:-------------:| 
-| GET comments | Simple API call to comments API and verifying response | 
-| Script button  | Navigate to page and click script button. Intercept that result and also make call to the same API and compare results |
-| GET users | GET for all users, store them, and then sort them in alphabetical order |
-| POST to users | POST to create user. Data sent should match the return |
-
-*Sauce Labs*
-
- Test        | Description           | 
-| ------------- |:-------------:| 
-| Full user journey | Login, add all items to cart, navigate through purchase process and verify success | 
-| Positive UI interactions | Login, utilize all filter dropdowns and this should NOT affect page functionality |
-| Locked out user | Locked out user cannot login and yields error |
-| Invalid user | Invalid credentials cannot login and yields error |
