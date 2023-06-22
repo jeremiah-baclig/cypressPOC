@@ -1,4 +1,4 @@
-name: Cypress Tests with Dependency and Artifact Caching
+name: Cypress Tests
 
 on:
   push
@@ -10,11 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set working directory to src
-        run: cd src
-
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
           start: npm start
           browser: chrome
+          working-directory: src
