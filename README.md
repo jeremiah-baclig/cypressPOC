@@ -6,6 +6,19 @@ I used [Cypress](https://docs.cypress.io/guides/getting-started/installing-cypre
 
 I set this up to run in a CI/CD pipeline using [Github Actions](https://github.com/jeremiah-baclig/cypressPOC/actions). Every push to main should trigger this flow.
 
+### Running this locally
+The tests live [HERE](https://github.com/jeremiah-baclig/cypressPOC/tree/main/src/cypress/e2e), meaning you can clone this repo and make adjustments to the tests accordingly.
+
+Here's a quick rundown of running the tests locally:
+1. Clone repository, and navigate to `/cypress`
+2. In cmd, run `npm install`
+3. You can see the scripts [HERE](https://github.com/jeremiah-baclig/cypressPOC/blob/main/src/package.json) but there are 2 ways to run the tests
+   1. `npm run cy:run` will run all tests one time
+   2. `npm run cy:open` will open a window with prompts, utilizing the built-in Cypress test runner
+      - I prefer this method as I can continuously make updates, choose tests, and see how it affects the tests
+      - You will also want to run using Chrome
+4. If you run into any issues, visit: https://docs.cypress.io/guides/getting-started/installing-cypress 
+
 ---
 
 ### Criteria 
