@@ -19,6 +19,9 @@ describe('GET', () => {
 		home.runScript();
 
 		home.getCodeResult('result').then((res) => {
+			if (!(res.length > 0)) {
+				assert.fail('No text returned in code block, could be failing to render.');
+			}
 			expect(res).to.equal(apiResult.replace(/\s/g, ''));
 		});
 	});
