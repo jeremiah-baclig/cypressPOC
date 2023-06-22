@@ -7,14 +7,17 @@ const home = new homePage();
 
 const instance = axiosInstance(home.hostUrl);
 
-let apiResult: string;
-
-describe.only('GET', () => {
-	it('Call todos', async () => {
-		apiResult = JSON.stringify((await instance.get('/todos/1')).data);
+describe('GET', () => {
+	it('Call comments', async () => {
+		const apiResult = (await instance.get('/comments?postId=1'));
+		
+		expect(apiResult.status).to.be.equal(200);
+		expect(apiResult.statusText.toString()).to.be.equal('OK');
 	});
 
-	it('Run script button returns same data as GET call', () => {
+	it('Run script button returns same data as GET call', async () => {
+		const apiResult = JSON.stringify((await instance.get('/todos/1')).data);
+
 		home.navigate();
 		home.runScript(apiResult);
 	});
