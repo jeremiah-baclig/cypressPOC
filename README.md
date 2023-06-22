@@ -1,5 +1,13 @@
 # Automation Project
 
+I used [Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress) and TypeScript for this project.
+
+>Reason being, we can use this as a reference for other automation projects, and also for me to explore a different framework to really understand the benefits and drawbacks of our current approach.
+
+I set this up to run in a CI/CD pipeline using [Github Actions](https://github.com/jeremiah-baclig/cypressPOC/actions). Every push to main should trigger this flow.
+
+---
+
 ### Criteria 
 Select a UI and a API site to test from: https://ultimateqa.com/dummy-automation-websites/  
 - [SauceDemo.com (Web UI)](https://www.saucedemo.com/) 
@@ -30,10 +38,6 @@ Select a UI and a API site to test from: https://ultimateqa.com/dummy-automation
 **Timeline goal: 2 months**
 
 --- 
-
-I used [Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress) and TypeScript for this project.
-
-Reason being, we can use this as a reference for other automation projects, and also for me to explore a different framework to really understand the benefits and drawbacks of our current approach.
 
 ### My Test Cases
 *JSON Placeholder*
