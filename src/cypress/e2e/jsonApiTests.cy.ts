@@ -9,21 +9,14 @@ const instance = axiosInstance(home.hostUrl);
 
 let apiResult: string;
 
-describe('GET', () => {
+describe.only('GET', () => {
 	it('Call todos', async () => {
 		apiResult = JSON.stringify((await instance.get('/todos/1')).data);
 	});
 
 	it('Run script button returns same data as GET call', () => {
 		home.navigate();
-		home.runScript();
-
-		home.getCodeResult('result').then((res) => {
-			if (!(res.length > 0)) {
-				assert.fail('No text returned in code block, could be failing to render.');
-			}
-			expect(res).to.equal(apiResult.replace(/\s/g, ''));
-		});
+		home.runScript(apiResult);
 	});
 
 	it('Get users and sort them by alphabetical order', async () => {
