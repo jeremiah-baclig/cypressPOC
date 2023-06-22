@@ -3,10 +3,6 @@ name: Cypress Tests with Dependency and Artifact Caching
 on:
   push
 
-defaults:
-  run:
-    working-directory: .
-
 jobs:
   install:
     runs-on: ubuntu-22.04
@@ -15,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set working directory to source
+      - name: Set working directory to src
         run: cd src
 
       - name: Cypress install
@@ -30,7 +26,7 @@ jobs:
         with:
           name: build
           if-no-files-found: error
-          path: src/build
+          path: build
 
   cypress-run:
     runs-on: ubuntu-22.04
@@ -44,9 +40,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: src/build
+          path: build
 
-      - name: Set working directory to source
+      - name: Set working directory to src
         run: cd src
 
       - name: Cypress run
