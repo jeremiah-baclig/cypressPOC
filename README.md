@@ -28,14 +28,17 @@ Here's a quick rundown of running the tests locally:
 | GET comments | Simple API call to comments API and verifying response | 
 | Script button  | Navigate to page and click script button. Intercept that result and also make call to the same API and compare results |
 | GET users | GET for all users, store them, and then sort them in alphabetical order |
-| POST to users | POST to create user. Data sent should match the return |
+| POST to posts | POST to create post. Data sent should match the return |
+| PATCH to posts | PATCH to update posts. Data sent should match the return |
+| DELETE posts | DELETE posts/1 and assert response is successful |
 
 *Sauce Labs*
 
  Test        | Description           | 
 | ------------- |:-------------:| 
 | Full user journey | Login, add all items to cart, navigate through purchase process and verify success | 
-| Positive UI interactions | Login, utilize all filter dropdowns and this should NOT affect page functionality |
+| Positive filter interactions | Login, utilize all filter dropdowns and this should NOT affect page functionality |
+| Positive flow from item | Can add to cart from specific item page |
 | Locked out user | Locked out user cannot login and yields error |
 | Invalid user | Invalid credentials cannot login and yields error |
 
@@ -66,6 +69,6 @@ Select a UI and a API site to test from: https://ultimateqa.com/dummy-automation
 - 1 negative test case validation 
 - 1 end to end workflow 
 
-*3 additional cases, optional.* 
+*3 additional cases, any type.* 
 
 **Timeline goal: 2 months**

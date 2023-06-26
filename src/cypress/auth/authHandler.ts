@@ -29,12 +29,14 @@ export const axiosInstance = (url: string) => {
 		timeout: 10000,
 	});
 
+	/* No need to actually use token
 	instance.interceptors.request.use(async (config) => {
 		const token = await createToken(url);
 		config.headers.Authorization = token;
 
 		return config;
 	});
+	*/
 
 	return instance;
 };

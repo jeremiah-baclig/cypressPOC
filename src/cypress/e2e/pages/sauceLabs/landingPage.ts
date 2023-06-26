@@ -1,6 +1,11 @@
 import { selectAllElements } from '../../data/helpers';
 
 class landingPage {
+	goToItem(itemNumber: number) {
+		const itemSelect = cy.get(`[id='item_${itemNumber}_title_link']`);
+		itemSelect.click();
+	}
+
 	addAllToCart(type: string, selector: string) {
 		selectAllElements(type, selector);
 	}
@@ -15,7 +20,7 @@ class landingPage {
 
 		if (option in ['az', 'za', 'lohi', 'hilo']) {
 			filterDropdown.select(option);
-		} 
+		}
 	}
 
 	checkShoppingCartBadge() {
