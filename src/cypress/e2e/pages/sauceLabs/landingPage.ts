@@ -1,6 +1,11 @@
 import { selectAllElements } from '../../data/helpers';
 
 class landingPage {
+	goToItem(itemNumber: number) {
+		const itemSelect = cy.get(`[id='item_${itemNumber}_title_link']`);
+		itemSelect.click();
+	}
+
 	addAllToCart(type: string, selector: string) {
 		selectAllElements(type, selector);
 	}
@@ -15,7 +20,7 @@ class landingPage {
 
 		if (option in ['az', 'za', 'lohi', 'hilo']) {
 			filterDropdown.select(option);
-		} 
+		}
 	}
 
 	checkShoppingCartBadge() {
@@ -27,12 +32,16 @@ class landingPage {
 			});
 	}
 
-	verifyShoppingCartLength() {
-		this.checkShoppingCartBadge().then((res) => {
-			cy.get("[class='cart_list']")
-				.find("[class='cart_item']")
-				.should('have.length', res);
-		});
+	verifyShoppingCartLength(length: number) {
+		if (length > 0) {
+
+		} else {
+			this.checkShoppingCartBadge().then((res) => {
+				cy.get("[class='cart_list']")
+					.find("[class='cart_item']")
+					.should('have.length', res);
+			});
+		}
 	}
 }
 

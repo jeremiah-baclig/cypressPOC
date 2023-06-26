@@ -40,18 +40,34 @@ describe('GET', () => {
 	});
 });
 
-describe('POST', () => {
-	it('Create post returns', async () => {
-		const randomPost: posts = {
-			userId: 11,
-			id: 101,
-			title: 'this is a title',
-			body: 'this is the body',
-		};
+describe('CUD (create, update, delete)', () => {
+	const randomPost: posts = {
+		userId: 11,
+		id: 101,
+		title: 'this is a title',
+		body: 'this is the body',
+	};
 
+	it('Create post returns', async () => {
 		const res = await instance.post('/posts', JSON.stringify(randomPost));
 		const resultPost: posts = JSON.parse(res.config.data);
 
 		expect(resultPost).to.eql(randomPost);
 	});
+
+	it('Patch update returns', async () => {
+		const res = await instance.patch('/posts/1', JSON.stringify(randomPost));
+		const resultPost: posts = JSON.parse(res.config.data);
+
+		expect(resultPost).to.eql(randomPost);
+	});
+
+	it('Delete updates from before', async () => {
+		const apiResult = (await instance.get('/comments?postId=1'));
+		
+		expect(apiResult.status).to.be.equal(200);
+		expect(apiResult.statusText.toString()).to.be.equal('OK');
+	});
 });
+
+

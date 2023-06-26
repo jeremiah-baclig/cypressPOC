@@ -7,6 +7,7 @@ import loginPage from './pages/sauceLabs/loginPage';
 import userInfoPage from './pages/sauceLabs/userInfoPage';
 import homePage from './pages/jsonPlaceholder/homePage';
 import overviewPage from './pages/sauceLabs/overviewPage';
+import menuDrawer from './pages/sauceLabs/menuDrawer';
 
 // imports for POM
 const home = new homePage();
@@ -15,6 +16,7 @@ const landing = new landingPage();
 const cart = new cartPage();
 const userInfo = new userInfoPage();
 const overview = new overviewPage();
+const menu = new menuDrawer();
 
 const instance = axiosInstance(home.hostUrl);
 
@@ -26,6 +28,11 @@ describe('User journey end to end', () => {
 			JSON.stringify((await instance.get('users')).data)
 		);
 	});
+
+	afterEach(() => {
+		menu.openMenu();
+		menu.logOut();
+	})
 
 	it('Can buy items and checkout', () => {
 		login.navigate();
@@ -49,10 +56,17 @@ describe('User journey end to end', () => {
 });
 
 describe('Positive user flow', () => {
-	it('Login as normal user and verify filters do not affect item selection', () => {
+	beforeEach(() => {
 		login.navigate();
 		login.loginAs(config.STANDARD_USER, config.PASSWORD);
+	})
 
+	afterEach(() => {
+		menu.openMenu();
+		menu.logOut();
+	})
+
+	it('Login as normal user and verify filters do not affect item selection', () => {
 		landing.selectFilterOption('az');
 		landing.addAllToCart('data-test', 'add-to-cart-');
 
@@ -64,6 +78,13 @@ describe('Positive user flow', () => {
 
 		landing.selectFilterOption('hilo');
 		landing.addAllToCart('data-test', 'remove-sauce-labs')
+	});
+
+	it('Can add to cart from specific item page', () => {
+		landing.goToItem(4);
+		landing.addAllToCart('data-test', 'add-to-cart-sauce-labs');
+		landing.goToCart();
+		cart.verifyShoppingCartLength();
 	});
 });
 
