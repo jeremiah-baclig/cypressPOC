@@ -63,7 +63,7 @@ describe('CUD (create, update, delete)', () => {
 	});
 
 	it('Delete updates from before', async () => {
-		const apiResult = (await instance.get('/comments?postId=1'));
+		const apiResult = (await instance.get('/posts/1'));
 		
 		expect(apiResult.status).to.be.equal(200);
 		expect(apiResult.statusText.toString()).to.be.equal('OK');
