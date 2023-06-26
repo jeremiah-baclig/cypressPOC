@@ -69,6 +69,6 @@ Select a UI and a API site to test from: https://ultimateqa.com/dummy-automation
 - 1 negative test case validation 
 - 1 end to end workflow 
 
-*3 additional cases, optional.* 
+*3 additional cases, any type.* 
 
 **Timeline goal: 2 months**

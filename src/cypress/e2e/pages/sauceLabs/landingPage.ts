@@ -32,16 +32,12 @@ class landingPage {
 			});
 	}
 
-	verifyShoppingCartLength(length: number) {
-		if (length > 0) {
-
-		} else {
-			this.checkShoppingCartBadge().then((res) => {
-				cy.get("[class='cart_list']")
-					.find("[class='cart_item']")
-					.should('have.length', res);
-			});
-		}
+	verifyShoppingCartLength() {
+		this.checkShoppingCartBadge().then((res) => {
+			cy.get("[class='cart_list']")
+				.find("[class='cart_item']")
+				.should('have.length', res);
+		});
 	}
 }
 
