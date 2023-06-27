@@ -28,15 +28,14 @@ export const axiosInstance = (url: string) => {
 		baseURL: url,
 		timeout: 10000,
 	});
-
-	/* No need to actually use token
-	instance.interceptors.request.use(async (config) => {
+	
+	instance.interceptors.request.use(async (config: any) => {
 		const token = await createToken(url);
-		config.headers.Authorization = token;
 
+		config.headers.Authorization = token;
+		config.headers['User-Agent'] = 'Chrome/110.0.0.0';
 		return config;
 	});
-	*/
 
 	return instance;
 };
