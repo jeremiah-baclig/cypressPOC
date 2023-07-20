@@ -82,7 +82,7 @@ describe('Positive user flow', () => {
 
 	it('Can add to cart from specific item page', () => {
 		landing.goToItem(Math.floor(Math.random() * 6));
-		landing.addAllToCart('data-test', 'add-to-cart-sauce-labs');
+		landing.addAllToCart('data-test', 'add-to-cart');
 		landing.goToCart();
 		cart.verifyShoppingCartLength();
 	});
