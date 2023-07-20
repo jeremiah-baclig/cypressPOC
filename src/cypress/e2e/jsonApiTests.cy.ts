@@ -1,5 +1,6 @@
 import { axiosInstance } from '../auth/authHandler';
 import homePage from '../e2e/pages/jsonPlaceholder/homePage';
+import { randomPost } from './data/testData';
 import { posts, user } from './data/types';
 
 // imports for POM
@@ -41,13 +42,6 @@ describe('GET', () => {
 });
 
 describe('CUD (create, update, delete)', () => {
-	const randomPost: posts = {
-		userId: 11,
-		id: 101,
-		title: 'this is a title',
-		body: 'this is the body',
-	};
-
 	it('Create post returns', async () => {
 		const res = await instance.post('/posts', JSON.stringify(randomPost));
 		const resultPost: posts = JSON.parse(res.config.data);
