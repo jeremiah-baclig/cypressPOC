@@ -13,7 +13,7 @@ Guidelines and constraints:
 - Take brief notes for each step: what you did, what you observed, and whether it matched the expected result.
 - If you encounter a blocking error, record the failure, any console/network logs available, and continue with safe exploratory checks where possible.
 - DO NOT open additional browser contexts beyond what the provided Playwright MCP tools create; reuse the authenticated context when practical.
-- When finished, close the browser and produce the following outputs inside the directory (./src/playwright-mcp/artifacts):
+- When finished, close the browser and produce the following outputs inside the CI directory (./src/playwright-mcp/artifacts) and create a new Issue with the details:
   - A concise pass/fail determination for the scenario.
   - A short, numbered list of the concrete steps performed (including important selectors or navigation paths).
   - Repro steps for any failures and suggested mitigations.
