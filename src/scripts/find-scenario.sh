@@ -4,8 +4,12 @@
 
 set -eu
 BRANCH_RAW="$1"
+# normalize branch name
 BRANCH=$(echo "$BRANCH_RAW" | tr '[:upper:]' '[:lower:]' | sed -E 's#[/\s]+#-#g' | sed -E 's/[^a-z0-9._-]//g' | sed -E 's/^-+//; s/-+$//')
-FEATURE_DIR="$(dirname "$0")/../features"
+# resolve absolute script and feature directories (robust when called from anywhere)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+FEATURE_DIR="$SCRIPT_DIR/../features"
+FEATURE_DIR="$(cd "$FEATURE_DIR" && pwd)" || true
 ATTEMPTED=()
 
 # Attempt 1: exact match
@@ -34,7 +38,7 @@ if [ -f "$CANDIDATE" ]; then
 fi
 
 # Not found: write diagnostics
-ARTIFACT_DIR="$(dirname "$0")/../playwright-mcp/artifacts"
+ARTIFACT_DIR="$SCRIPT_DIR/../playwright-mcp/artifacts"
 mkdir -p "$ARTIFACT_DIR"
 DIAG_FILE="$ARTIFACT_DIR/SCENARIO_NOT_FOUND.txt"
 {

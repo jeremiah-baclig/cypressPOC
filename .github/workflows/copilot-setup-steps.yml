@@ -40,10 +40,22 @@ jobs:
         run: |
           chmod +x ./src/scripts/find-scenario.sh
           echo "Branch: ${{ github.ref_name }}"
-          # Attempt to resolve scenario; script will write diagnostics on failure
-          SCENARIO_PATH=$(./src/scripts/find-scenario.sh "${{ github.ref_name }}" 2>/dev/null || true)
+          # Ensure artifacts dir exists before writing resolved path
+          mkdir -p ./src/playwright-mcp/artifacts
+          # Debug: print cwd and list feature files
+          echo "PWD: $(pwd)"
+          echo "Listing src/features:" 
+          ls -la ./src/features || true
+          # Attempt to resolve scenario; allow script stderr to appear in logs for debugging
+          SCENARIO_PATH=$(./src/scripts/find-scenario.sh "${{ github.ref_name }}" || true)
           echo "Resolved scenario: ${SCENARIO_PATH:-(none)}"
           echo "${SCENARIO_PATH:-}" > ./src/playwright-mcp/artifacts/RESOLVED_SCENARIO_PATH || true
+          # If the script wrote a diagnostic file, print it for visibility
+          if [ -f ./src/playwright-mcp/artifacts/SCENARIO_NOT_FOUND.txt ]; then
+            echo '--- SCENARIO_NOT_FOUND.txt ---'
+            cat ./src/playwright-mcp/artifacts/SCENARIO_NOT_FOUND.txt || true
+            echo '--- end ---'
+          fi
 
       - name: Signal agent (RUN_STARTED)
         run: |
@@ -58,8 +70,19 @@ jobs:
             echo "scenario: (none)" >> ./src/playwright-mcp/artifacts/RUN_STARTED.txt
           fi
 
-      - name: Prepare artifact dir
-        run: mkdir -p ./src/playwright-mcp/artifacts
+      - name: Create initial Issue (signal)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create a minimal issue so external integrations (or humans) can see the run started.
+          SCENARIO=$(cat ./src/playwright-mcp/artifacts/RESOLVED_SCENARIO_PATH 2>/dev/null || echo "(none)")
+          TITLE="[MCP][Playwright][${{ github.ref_name }}] Exploratory Test Results — IN-PROGRESS (run ${{ github.run_id }})"
+          BODY="Run started. Run ID: ${{ github.run_id }} | Branch: ${{ github.ref_name }} | Scenario: $SCENARIO"
+          echo "Creating issue with title: $TITLE"
+          RESP=$(curl -s -X POST -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/issues" -d "{\"title\":\"$TITLE\",\"body\":\"$BODY\",\"labels\":[\"playwright-mcp\",\"exploratory-testing\"]}") || true
+          echo "$RESP" > ./src/playwright-mcp/artifacts/ISSUE_CREATE_RESPONSE.json || true
+          ISSUE_NUMBER=$(echo "$RESP" | python -c "import sys,json;d=sys.stdin.read();obj=json.loads(d) if d else {};print(obj.get('number',''))") || true
+          echo "$ISSUE_NUMBER" > ./src/playwright-mcp/artifacts/ISSUE_NUMBER.txt || true
 
       - name: Upload Artifacts
         if: always()
