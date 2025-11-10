@@ -36,10 +36,33 @@ jobs:
           cd ./src
           npx playwright install --with-deps
 
+      - name: Diagnose scenario selection
+        run: |
+          chmod +x ./src/scripts/find-scenario.sh
+          echo "Branch: ${{ github.ref_name }}"
+          # Attempt to resolve scenario; script will write diagnostics on failure
+          SCENARIO_PATH=$(./src/scripts/find-scenario.sh "${{ github.ref_name }}" 2>/dev/null || true)
+          echo "Resolved scenario: ${SCENARIO_PATH:-(none)}"
+          echo "${SCENARIO_PATH:-}" > ./src/playwright-mcp/artifacts/RESOLVED_SCENARIO_PATH || true
+
+      - name: Signal agent (RUN_STARTED)
+        run: |
+          mkdir -p ./src/playwright-mcp/artifacts
+          TIMESTAMP=$(date --utc +"%Y-%m-%dT%H:%M:%SZ")
+          echo "run_id: ${{ github.run_id }}" > ./src/playwright-mcp/artifacts/RUN_STARTED.txt
+          echo "branch: ${{ github.ref_name }}" >> ./src/playwright-mcp/artifacts/RUN_STARTED.txt
+          echo "timestamp: $TIMESTAMP" >> ./src/playwright-mcp/artifacts/RUN_STARTED.txt
+          if [ -s ./src/playwright-mcp/artifacts/RESOLVED_SCENARIO_PATH ]; then
+            echo "scenario: $(cat ./src/playwright-mcp/artifacts/RESOLVED_SCENARIO_PATH)" >> ./src/playwright-mcp/artifacts/RUN_STARTED.txt
+          else
+            echo "scenario: (none)" >> ./src/playwright-mcp/artifacts/RUN_STARTED.txt
+          fi
+
       - name: Prepare artifact dir
         run: mkdir -p ./src/playwright-mcp/artifacts
 
       - name: Upload Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-mcp-artifacts
