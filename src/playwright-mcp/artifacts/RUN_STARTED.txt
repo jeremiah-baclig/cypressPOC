@@ -1,0 +1,4 @@
+run_id: 19239879596
+branch: copilot/sub-pr-6
+timestamp: 2025-11-10T17:13:51Z
+scenario: /home/runner/work/cypressPOC/cypressPOC/src/features/main-scenario.md
