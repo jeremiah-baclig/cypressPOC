@@ -1,5 +1,6 @@
 name: "Copilot Setup Steps"
 
+# see if playwright install is necessary
 on:
   workflow_dispatch:
 
