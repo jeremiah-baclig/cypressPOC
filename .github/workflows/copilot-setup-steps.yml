@@ -12,7 +12,6 @@ jobs:
       contents: read
       issues: write
     env:
-      URL: ${{ vars.URL }}
       USER: ${{ vars.USER }}
       PASS: ${{ vars.PASS }}
 
@@ -21,20 +20,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install JavaScript dependencies
-        run: npm install
-        working-directory: ./src
-    
-      - name: Install Playwright browsers
-        run: |
-          cd ./src
-          npx playwright install --with-deps
 
       - name: Upload Artifacts
         if: always()

@@ -22,11 +22,8 @@ When finished, close the browser and produce the following outputs inside the CI
   - Playwright Trace file
   - Playwright screenshots and videos (if any)
 
-Progress updates
+Diagnostic guidance for workflows
 
-- During the run, write short, status-oriented artifact files into `./src/playwright-mcp/artifacts/` (for example `RUN_STARTED.txt`, `RUN_FINISHED.txt`, `ERRORS.txt`). These files are the canonical signals for external tooling and human reviewers.
-
-Notes:
 - The setup workflow should expose the branch name to the runner and run a small diagnostic step that prints available scenario files and the resolved file path. This makes it easy to debug missing artifact uploads or misnamed scenario files.
 
 Playwright artifacts and upload expectations
