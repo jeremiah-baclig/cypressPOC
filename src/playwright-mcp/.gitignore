@@ -1,0 +1,8 @@
+# Node modules
+node_modules/
+
+# Large video files (can be regenerated)
+artifacts/videos/
+
+# Error screenshots from failed runs
+artifacts/error-screenshot.png

@@ -1,0 +1,76 @@
+{
+  "scenario": "SauceDemo Exploratory Testing",
+  "acceptanceCriteria": [
+    "1. Can login successfully",
+    "2. Add all items to cart",
+    "3. Cart should contain all items"
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "action": "Navigate to https://www.saucedemo.com/",
+      "status": "PASSED",
+      "observation": "Successfully navigated to SauceDemo landing page"
+    },
+    {
+      "step": 2,
+      "action": "Verify username and password fields are present",
+      "status": "PASSED",
+      "observation": "Login form elements (username, password, login button) are visible"
+    },
+    {
+      "step": 3,
+      "action": "Fill username with \"standard_user\" and password",
+      "status": "PASSED",
+      "observation": "Successfully filled credentials"
+    },
+    {
+      "step": 4,
+      "action": "Click login button",
+      "status": "PASSED",
+      "observation": "Successfully logged in and redirected to inventory page"
+    },
+    {
+      "step": 5,
+      "action": "Verify we are on the inventory page",
+      "status": "PASSED",
+      "observation": "Inventory page loaded successfully"
+    },
+    {
+      "step": 6,
+      "action": "Get all inventory items",
+      "status": "PASSED",
+      "observation": "Found 6 inventory items"
+    },
+    {
+      "step": 7,
+      "action": "Add all 6 items to cart",
+      "status": "PASSED",
+      "observation": "Successfully added 6 items to cart. Cart badge shows: 6"
+    },
+    {
+      "step": 8,
+      "action": "Navigate to shopping cart",
+      "status": "PASSED",
+      "observation": "Successfully navigated to cart page"
+    },
+    {
+      "step": 9,
+      "action": "Verify all items are present in cart",
+      "status": "PASSED",
+      "observation": "Cart contains all 6 items as expected",
+      "additionalDetails": {
+        "itemsInCart": [
+          "Sauce Labs Backpack",
+          "Sauce Labs Bike Light",
+          "Sauce Labs Bolt T-Shirt",
+          "Sauce Labs Fleece Jacket",
+          "Sauce Labs Onesie",
+          "Test.allTheThings() T-Shirt (Red)"
+        ]
+      }
+    }
+  ],
+  "status": "PASSED",
+  "timestamp": "2025-11-11T16:13:00.085Z"
+}
